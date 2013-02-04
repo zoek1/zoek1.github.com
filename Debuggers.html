@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Iniciando con el debugger</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Miguel Angel Gordián">
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+      .tag-1 {
+        font-size: 13pt;
+      }
+      .tag-2 {
+        font-size: 10pt;
+      }
+      .tag-2 {
+        font-size: 8pt;
+      }
+      .tag-4 {
+        font-size: 6pt;
+     }
+    </style>
+    <link href="./theme/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="./theme/css/font-awesome.css" rel="stylesheet">
+
+    <link href="./theme/css/pygments.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="./theme/images/favicon.ico">
+    <link rel="apple-touch-icon" href="./theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./theme/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./theme/images/apple-touch-icon-114x114.png">
+
+    <link href="./" type="application/atom+xml" rel="alternate" title="import zoek ATOM Feed" />
+    
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="./index.html">import zoek </a>
+          <div class="nav-collapse">
+            <ul class="nav">
+                                                                    <li class="divider-vertical"></li>
+                                              <li class="active">
+                    <a href="./category/programacion.html">
+						<i class="icon-folder-open icon-large"></i>Programación
+					</a>
+                  </li>
+                                <li >
+                    <a href="./category/python.html">
+						<i class="icon-folder-open icon-large"></i>Python
+					</a>
+                  </li>
+              
+                          <ul class="nav pull-right">
+                                <li><a href="./archives.html"><i class="icon-th-list"></i>Archives</a></li>
+                          </ul>
+
+            </ul>
+            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="span9" id="content">
+            <section id="content">
+        <article>
+                <header>
+                        <h1>
+                                <a href=""
+                                        rel="bookmark"
+                                        title="Permalink to Iniciando con el debugger">
+                                        Iniciando con el debugger
+                                </a>
+                                                        </h1>
+                </header>
+                <div class="entry-content">
+                <div class="well">
+                        <footer class="post-info">
+<span class="label">Date</span>
+<abbr class="published" title="2013-01-31T00:33:00">
+        <i class="icon-calendar"></i>jue 31 enero 2013
+</abbr>
+<span class="label">By</span>
+<a href="./author/miguel-angel-gordian-zoek.html"><i class="icon-user"></i>Miguel Angel Gordian (zoek)</a>
+<span class="label">Category</span>
+<a href="./category/programacion.html"><i class="icon-folder-open"></i>Programación</a>.
+
+
+<span class="label">Tags</span>
+	<a href="./tag/gdb.html"><i class="icon-tag"></i>gdb</a>
+	<a href="./tag/debugger.html"><i class="icon-tag"></i>debugger</a>
+	<a href="./tag/c.html"><i class="icon-tag"></i>c</a>
+</footer><!-- /.post-info -->                </div>
+                <p>Hace unos días, mientras revisaba el timeline de twitter, un tuit de mi amigo
+<a class="reference external" href="https://twitter.com/metaedd">&#64;metaedd</a>, llamo demasiado mi atención,
+este decía lo siguiente:</p>
+<blockquote>
+<strong>Ese momento Épico cuando tu programa
+compila sin errores y  Fail cuando no corre
+de manera adecuada y ya no te marca los errores!</strong>
+— <em>metaedd</em></blockquote>
+<p>Sin querer, mi amigo me dio un excelente tema para publicar en este su blog y
+que ayudara a conocer a los debuggers, a ser mas productivos o mas mundana mente,
+a minimizar esas noches de desvelo o de privarnos de la sociedad para poder
+encontrar esos errores que en muchas ocasiones llegan a avergonzarnos y otras
+veces son una buena razón para quedarnos meditando con un buen café.</p>
+<p>Retomando el tema, partiremos de la idea del tuit de la cual podemos decir que
+cuando un programa no muestra errores de compilación no necesaria mente es
+indicio de que su ejecución y su lógica es correcta. Pero ¿como podemos llegar
+a estar casi seguros de que el programa no tratara de accederá a locaciones de
+memoria no permitidas (un típico segmentation fault), o no encenderá a la
+computadora en llamas, entre otros casos menos dramáticos?.</p>
+<p>La respuesta lógica a esta incógnita es depurar el programa, y ya respondida
+esta surge otra pregunta y esa es el ¿como llegar a hacerlo?.</p>
+<p>Una practica muy común es poner prints o puts tanteando a lo largo del código,
+hasta encontrar el error.</p>
+<img alt="depuración ruda" class="align-center" src="/static/image/debug-printf.jpg" style="width: 300px; height: 400px;" />
+<p>¿Que si es valida esta forma? Claro que es valida, de cualquier manera es una
+forma de encontrar los errores, aunque muy poco elegante y eficiente.</p>
+<blockquote>
+<strong>No todo lo que este en la moda, es necesariamente lo correcto</strong></blockquote>
+<p>Dado que siempre ha existido la necesidad de solucionar errores, puesto que somos
+humanos, desarrolladores crearon herramientas que permitieran facilitar y
+optimizar esta labor, a estos se les dio el nombre de debugger o depuradores.
+Quisiera hondear un poco sobre la historia de la palabra debugger, pero sera
+para alguna otra ocasión.</p>
+<p>Veamos por el momento la definición de debugger o depurador, cortesía de
+<a class="reference external" href="http://es.wikipedia.org/wiki/Depurador">wikipedia</a>.</p>
+<blockquote>
+<strong>Un debugger o depurador es usado para probar un programa objetivo y
+eliminar sus errores.</strong></blockquote>
+<p>Con base en la definición, un programa son instrucciones y datos, los cuales fueron
+provistos por códigos fuente escritos en algún lenguaje de programación.
+Hoy en día gran mayoría de los lenguajes de programación tienen herramientas
+que permitan, ejecutar instrucción por instrucción, linea a linea del programa
+y así facilitar así el desarrollo de software.
+A las herramientas que realizan esta tarea, se les conoce como debuggers.</p>
+<p>Dejando de lado la palabrería y pasando a la practica les presentare un clásico
+de clásicos, el GNU Project Debugger - GDB.
+Este debugger ademas de ser código abierto provee soporte para debuggear C/C++,
+Ada, Pascal, Objective-C, entre otros.</p>
+<img alt="Archer - Mascota de gdb" class="align-center" src="/static/image/archer.png" style="width: 300px; height: 200px;" />
+<p>Para empezar necesitamos código que compile pero que tenga algunos errores,
+yo propongo algo sencillo para comenzar a aprender.</p>
+<p>La función que debe cumplir este programa es crear un arreglo con longitud TAM,
+con un ciclo asignar a cada posición su respectivo indice, y en otro ciclo imprimir
+el contenido de cada locación.</p>
+<div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#define TAM 3</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">TAM</span><span class="p">,</span> <span class="n">numeros</span><span class="p">[</span><span class="n">TAM</span><span class="p">];</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">--</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">numeros</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+
+    <span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">TAM</span><span class="p">)</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">numeros</span><span class="p">[</span><span class="n">i</span><span class="o">++</span><span class="p">]);</span>
+
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+</pre></div>
+<p>ahora compilemos el programa de la siguiente manera:</p>
+<div class="highlight"><pre><span class="go">debug$ gcc debugger-1.c -ggdb3 -o debugger-1.c</span>
+</pre></div>
+<p>Lo que indicamos en la linea de comando es, que incluya los símbolos de depuración
+en el binario. Específicamente con la opción -ggdb indicamos que genere información
+de depuración para ser usada por gdb la cual deberá de ser lo mas explicita posible,
+de acuerdo al manual este podría ser alguno de los formatos dwarf 2, stabs o el
+formato nativo y el numero tres indica el nivel de información que requerimos. El
+nivel por defecto es el 2, este incluye descripción de funciones, de variables
+externas e internas y numeros de linea. El tres va un poco mas halla, este incluye
+todas las definiciones de macros presentes en el programa.</p>
+<p>Ejecutemos el programa para verificar que tenemos un código erróneo.</p>
+<div class="highlight"><pre><span class="go">debug$ ./debugger-1</span>
+<span class="go">-1074137012</span>
+<span class="go">-1</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">2</span>
+</pre></div>
+<p>Nuestro código esta imprimiendo algo de basura, por lo que completamos la &quot;difícil&quot;
+tarea de tener un código erróneo. Ahora solo queda llamar a gdb pasando le como
+parámetro nuestro ejecutable, puede llegar a verse de la siguiente manera la
+bienvenida.</p>
+<div class="highlight"><pre><span class="go">debug$ gdb debugger-1</span>
+<span class="go">GNU gdb (GDB) 7.5.1</span>
+<span class="go">Copyright (C) 2012 Free Software Foundation, Inc.</span>
+<span class="go">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span>
+<span class="go">This is free software: you are free to change and redistribute it.</span>
+<span class="go">There is NO WARRANTY, to the extent permitted by law.  Type &quot;show copying&quot;</span>
+<span class="go">and &quot;show warranty&quot; for details.</span>
+<span class="go">This GDB was configured as &quot;i686-pc-linux-gnu&quot;.</span>
+<span class="go">For bug reporting instructions, please see:</span>
+<span class="go">&lt;http://www.gnu.org/software/gdb/bugs/&gt;...</span>
+<span class="go">Reading symbols from /home/zoek/code/c/debugger-1...done.</span>
+<span class="go">(gdb)</span>
+</pre></div>
+<p>Se debe de tomar especial atención en la última linea de la bienvenida, ya que
+se indica que la información de depuración es correcta y se puede proseguir con la
+depuración correctamente. Cuando un ejecutable no incluye la información de
+depuración, en esta misma linea nos indicara que no pudieron ser cargador los
+símbolos de depuración, por lo cual no podremos hacer la depuración correctamente.</p>
+<p>GDB cuenta con su propio prompt, este se muestra inicialmente como (gdb) y al igual
+que el del shell, utiliza readline dando así acceso a las combinaciones de teclas de
+acceso rápido de emacs o de vi, también te ofrece la posibilidad de auto-completar ya
+sean los comando o las definiciones de los elementos del programa.</p>
+<p>Para empezar a depurar nuestro programa, lo primero a hacer es establecer un punto
+de interrupción, para así poder detener la ejecución del programa esto se hace con el
+comando break mas un argumento el cual puede ser una definición de función, un numero
+de linea, una etiqueta o una dirección valida del programa. En este momento
+utilizaremos una definición de función detener la ejecución, pero en futuras ocasiones
+describiré cada uno de los especificadores de locación validos. Estableceré
+el punto de interrupción en la definición de la función main dado que es la única en
+el código.</p>
+<p>Algo que debo de destacar es que algunos de los comando de gdb tienen sus respectivas
+abreviaciones como es el caso de break y su abreviación es 'b' o el de run que es 'r'.
+<strong>Se debe tener en claro que solo son algunos de los comandos, los que tienen abreviación.</strong></p>
+<div class="highlight"><pre><span class="go">(gdb) break main</span>
+<span class="go">Breakpoint 1 at 0x8048405: file debugger-1.c, line 5.</span>
+</pre></div>
+<p>La salida nos muestra que el punto de interrupción ha sido correctamente establecido
+en la dirección 0x8048405 y que la definición se encuentra en el archivo debugger-1.c,
+en la linea 5. La dirección depende de la posición en la que es colocado el programa.</p>
+<p>Ahora que ya tenemos el punto de interrupción podemos ejecutar el programa con la
+plena seguridad de que no terminara su ejecución antes de que parpadeemos, si no
+que se detendrá cuando inicia la definición de la función.
+El comando para empezar la ejecución del programa es run y puede ir seguido si
+este los requiere de opciones como si fuese una orden en el shell, en nuestro caso
+no las utilizaremos.</p>
+<div class="highlight"><pre><span class="go">(gdb) r</span>
+<span class="go">Starting program: /home/zoek/code/c/debugger-1</span>
+
+<span class="go">Breakpoint 1, main () at debugger-1.c:5</span>
+<span class="go">5      int i=TAM, numeros[TAM];</span>
+</pre></div>
+<p>La salida después de ejecutar el comando run, señala que el programa se ha detenido
+el el punto de interrupción 1, en la definición de main, también muestra el numero
+de linea y la siguiente instrucción a ejecutar, esto es que la linea 5 la cual tiene
+la declaración de i y numeros, es la próxima instrucción a ejecutar.</p>
+<p>Para reanudar la ejecución del programa una instrucción a la vez, existen varios
+comando pero en esta ocasión solo expondremos los mas comunes y estos son step y
+next. La diferencia entre estos dos se basa en que step ejecuta una instrucción a
+la vez y si la siguiente instrucción fuese una función de la cual se tienen los
+símbolos de depuración, entonces saltaría dentro de la definición de la función,
+mientras que next ejecutaría la función sin adentrarse en ella. También estos dos
+comandos cuentan con sus abreviaturas 's' para step y 'n' para next.</p>
+<p>Continuando con el programa, ejecutemos step hasta llegar al ciclo, adentrémonos
+en el ciclo e imprimamos el valor de i en cada iteración para asegurarnos que los
+valores del 2 a 0 están siendo asignados correctamente.</p>
+<p>Para obtener la impresión de los valores, contamos con el comando print el cual
+imprime la información acorde al tipo de dato del elemento que le pasemos como
+argumento o también existe el comando printf y su sintaxis es casi igual al printf
+en c solo que sin paréntesis, la cadena de formato y la lista de argumentos de
+donde se tomaran las representación se especifican de igual manera.</p>
+<div class="highlight"><pre><span class="go">(gdb) s</span>
+<span class="go">7      while(i-- &gt;= 0)</span>
+<span class="go">(gdb) print i</span>
+<span class="gp">$</span><span class="nv">1</span> <span class="o">=</span> 3
+<span class="go">(gdb) s</span>
+<span class="go">8        numeros[i] = i;</span>
+<span class="go">(gdb) s</span>
+<span class="go">7      while(i-- &gt;= 0)</span>
+<span class="go">(gdb) printf &quot;numeros[%d] = %d\n&quot;,i,numeros[i]</span>
+<span class="go">numeros[2] = 2</span>
+<span class="go">(gdb) s</span>
+<span class="go">8        numeros[i] = i;</span>
+<span class="go">(gdb) s</span>
+<span class="go">7      while(i-- &gt;= 0)</span>
+<span class="go">(gdb) printf &quot;numeros[%d] = %d\n&quot;,i,numeros[i]</span>
+<span class="go">numeros[1] = 1</span>
+<span class="go">(gdb) s</span>
+<span class="go">8        numeros[i] = i;</span>
+<span class="go">(gdb) s</span>
+<span class="go">7      while(i-- &gt;= 0)</span>
+<span class="go">(gdb) printf &quot;numeros[%d] = %d\n&quot;,i,numeros[i]</span>
+<span class="go">numeros[0] = 0</span>
+<span class="go">(gdb) s</span>
+<span class="go">8        numeros[i] = i;</span>
+<span class="go">(gdb) s</span>
+<span class="go">7      while(i-- &gt;= 0)</span>
+<span class="go">(gdb) printf &quot;numeros[%d] = %d\n&quot;,i,numeros[i]</span>
+<span class="go">numeros[-1] = -1</span>
+<span class="go">(gdb) s</span>
+<span class="go">10     while(i &lt; TAM)</span>
+<span class="go">(gdb) print i</span>
+<span class="gp">$</span><span class="nv">2</span> <span class="o">=</span> -2
+</pre></div>
+<p>Como se puede observar el valor de i después de el ciclo de asignación es -2, esto
+es sin duda erróneo pues un indice negativo, se halla fuera del espacio reservado
+para el array y puede llegar a modificar otros datos, pero es permisible debido a
+que nos encontramos dentro del área designada al programa.</p>
+<p>Entonces tenemos claro que hay un error de lógica, de lo observado podríamos hacer
+algunas conjeturas:</p>
+<ol class="arabic simple">
+<li>Las operaciones aplicadas sobre la variable i que actúa como indice,
+nos da un numero menor al esperado que es 0.</li>
+<li>El segundo ciclo ejecuta correctamente su código, mostrando cada uno de los
+valores almacenados.</li>
+</ol>
+<p>Dadas estas conjeturas podemos concluir que si la variable i al terminar
+el ciclo tuviera el valor de 0, el segundo while iteraría acorde a la lógica
+del programa y accedería a las locaciones de memoria verdaderas.</p>
+<p>Demostremos si esta conclusión es verdadera estableciendo el valor de i a 0 y
+ejecutando la instrucción until dándole como argumento la posición a detenerse.</p>
+<div class="highlight"><pre><span class="go">(gdb) set variable i = 0</span>
+<span class="go">(gdb) until 12</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">2</span>
+</pre></div>
+<p>Efectivamente, la conclusión fue correcta pero lo que verdad importa son los
+comandos set y until, hablemos un poco de ellos.</p>
+<p>set es un comando de gdb que permite asignar valores a las variables, pero para
+hacer distinción de las variable que usa gdb para las configuración y las del
+programa se antepone la palabra var o variable antes de la asignación de la
+variable del programa. Se puede ejecutar sin la palabra variable pero debemos
+tener cuidado de que no entre en conflicto con los sub-comandos de set.</p>
+<div class="highlight"><pre><span class="go">(gdb) set i = 0</span>
+<span class="go">Ambiguous set command &quot;i = 0&quot;: inferior-tty, input-radix, interactive-mode.</span>
+<span class="go">(gdb) set i=0</span>
+<span class="go">Ambiguous set command &quot;i=0&quot;: .</span>
+</pre></div>
+<p>En este caso tenemos dos errores, pero son ocasionados por la misma razón, en el
+primer caso no sabe que comando ejecutar de los tres disponibles, en el segundo
+caso el signo '=' que actúa como delimitador, la i fue expandida para buscar
+coincidencias dado que tiene comando que comienzan con esta letra, pero al momento
+de mostrar las coincidencias no existe ninguna posible.</p>
+<p>EL comando until al igual que muchos de los comandos tiene distintas funcionalidades.
+Las de until son evitar el dar step en cada iteración mas de una vez, esto es que
+si tenemos un ciclo solo tendremos que recorrerlo una vez y cuando nos encontremos
+nuevamente en el inicio del ciclo podremos escribir until, esto activara la ejecución
+y se detendrán las iteraciones solo hasta que la condicional no se cumpla o trate de
+salir de su stack frame.
+Otra forma de utilizar el comando until es indicarle una locación hasta donde deberá
+parar su ejecución, esta puede ser una linea, una dirección, una etiqueta o una
+definición de una función dentro del stack frame o al hasta que abandone su
+stack frame.</p>
+<p>Volvamos al código del programa ha corregir los errores, debemos de cambiar el
+operador de '&gt;=' cambiarlo ha '&gt;' por la razón de que cuando sea cero habrá iterado
+tres veces, el tamaño del arreglo, y transferiremos el decremento de la variable
+localizado en la condicional, un poco antes del direccionamiento para así asignar
+los indices correctos.</p>
+<div class="highlight"><pre><span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">numeros</span><span class="p">[</span><span class="o">--</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</pre></div>
+<p>Algo interesante de gdb es que puedes correr comandos del shell, y todo esto se
+hace mediante el comando shell.</p>
+<div class="highlight"><pre><span class="go">(gdb) shell gcc debugger-1.c -ggdb3 -o debugger-1</span>
+<span class="go">(gdb) r</span>
+<span class="go">Starting program: /home/zoek/code/c/debugger-1</span>
+<span class="go">Breakpoint 1, main () at debugger-1.c:10</span>
+<span class="go">10     int i=TAM, numeros[TAM];</span>
+</pre></div>
+<p>Al compilar nuevamente el programa y volver a ejecutarlo, gdb leerá nuevamente
+la información de depuración y los break que establecimos anteriormente seguirán
+siendo validos. El programa detendrá su ejecución al inicio de la función main,
+como no establecimos ningún otro punto de interrupción podremos ejecutar el
+comando continue o su abreviación c para simular una ejecución común del programa.
+Aclaro que si establecieron otros puntos de interrupción, continue se dentendrá en
+sus respectivas posiciones.</p>
+<div class="highlight"><pre><span class="go">(gdb) continue</span>
+<span class="go">Continuing.</span>
+<span class="go">0</span>
+<span class="go">1</span>
+<span class="go">2</span>
+<span class="go">[Inferior 1 (process 27759) exited normally]</span>
+<span class="go">(gdb)</span>
+</pre></div>
+<p>Cuando hallamos terminado el proceso de depuración, podemos llegar a retirar la
+información de depuración sin tener que volver a compilar el programa sin las
+flags, esto se hace por medio del programa <a class="reference external" href="http://linux.die.net/man/1/strip">strip</a>
+que forma parte de el paquete <a class="reference external" href="http://www.gnu.org/software/binutils/">binutils</a> y
+una manera sencilla de eliminar los símbolos es:</p>
+<div class="highlight"><pre><span class="go">debug$ strip --strip-debug debugger-1</span>
+</pre></div>
+<p>Con la eliminación de la información de depuración, finalizo este post, en el
+siguiente tocare los puntos de seguir a los procesos hijo, configurar un poco
+a gdb y hacer snapshots del estado del proceso.</p>
+<div class="section" id="gdb-tip">
+<h2>GDB TIP</h2>
+<p>El gdb tip consiste en poder visualizar el código fuente, si es que en el binario
+ha sido incluida la información de depuración.</p>
+<div class="highlight"><pre><span class="go">(gdb) l</span>
+<span class="go">3</span>
+<span class="go">4    int main(){</span>
+<span class="go">5      int i=TAM, numeros[TAM];</span>
+<span class="go">6</span>
+<span class="go">7      while(i &gt; 0)</span>
+<span class="go">8        numeros[--i] = i;</span>
+<span class="go">9</span>
+<span class="go">10     while(i &lt; TAM)</span>
+<span class="go">11       printf(&quot;%d\n&quot;, numeros[i++]);</span>
+<span class="go">12</span>
+</pre></div>
+<p>El comando list es simple, cuando especificas list sin argumentos imprime diez o mas
+lineas, si se ejecuto anteriormente list, imprime las siguientes diez lineas,
+pero si se encuentra en la parte final del stack frame actual entonces se muestra
+centrada la linea actual.
+Con el argumento '-' imprime las diez lineas anteriores a las ya impresas si se
+ejecuto list anteriormente o las 10 anteriores a la actual.
+Si se especifica una linea o una función, la linea actual se encontrara centrada.
+Cabe aclara que si se ejecuta un comando que cambie la linea actual, y se vuelve
+a ejecutar list, este comando mostrara las lineas como si hubiese sido la primera
+vez que se ejecuta.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">La secuencia de los comandos mostrados no es necesariamente la ideal, fue hecha
+para fines de enseñanza y el usuario es libre de tomar la decisión de que comando
+ejecutar en cada instancia.</p>
+</div>
+<p>EOF</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="id1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[0]</td><td><a class="reference external" href="http://sourceware.org/gdb/download/onlinedocs/">Debugging with gdb, Richard Stallman, Roland Pesch, Stan Shebs, et al.</a></td></tr>
+</tbody>
+</table>
+</div>
+
+                </div><!-- /.entry-content -->
+                                <div class="comments">
+                <h2>Comments !</h2>
+                        <div id="disqus_thread"></div>
+                        <script type="text/javascript">
+                           var disqus_identifier = "Debuggers.html";
+                           (function() {
+                                var dsq = document.createElement('script');
+                                dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = 'http://importzoek.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] ||
+                                 document.getElementsByTagName('body')[0]).appendChild(dsq);
+                          })();
+                        </script>
+                </div>
+                        </article>
+</section>
+        </div><!--/span-->
+
+                <div class="span3 well sidebar-nav" id="sidebar">
+            <ul class="nav nav-list">
+<li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
+    <li><a href="http://docs.notmyidea.org/alexis/pelican/"><i class="icon-external-link"></i>Pelican</a></li>
+    <li><a href="http://python.org"><i class="icon-external-link"></i>Python.org</a></li>
+    <li><a href="http://jinja.pocoo.org"><i class="icon-external-link"></i>Jinja2</a></li>
+    <li><a href="http://whattheemacsd.com/"><i class="icon-external-link"></i>What the .emacs.d!?</a></li>
+<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
+<li><a href="http://zoek1.github.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
+<li><a href="http://zoek1.github.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
+    <li><a href="https://twitter.com/Zooekk"><i class="icon-twitter-sign icon-large"></i>twitter</a></li>
+    <li><a href="https://github.com/zoek1"><i class="icon-github-sign icon-large"></i>github</a></li>
+    <li><a href="https://plus.google.com/u/0/110987674730669222270/"><i class="icon-google-sign icon-large"></i>google</a></li>
+
+<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
+<li>
+<a href="./category/programacion.html">
+    <i class="icon-folder-open icon-large"></i>Programación
+</a>
+</li>
+<li>
+<a href="./category/python.html">
+    <i class="icon-folder-open icon-large"></i>Python
+</a>
+</li>
+
+<li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
+<li class="tag-4">
+    <a href="./tag/bienvenida.html">
+        <i class="icon-tag icon-large"></i>Bienvenida
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/debugger.html">
+        <i class="icon-tag icon-large"></i>debugger
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/python.html">
+        <i class="icon-tag icon-large"></i>Python
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/c.html">
+        <i class="icon-tag icon-large"></i>c
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/holamundo.html">
+        <i class="icon-tag icon-large"></i>HolaMundo
+    </a>
+</li>
+<li class="tag-4">
+    <a href="./tag/gdb.html">
+        <i class="icon-tag icon-large"></i>gdb
+    </a>
+</li>
+
+
+</ul>        </div><!--/.well -->
+
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <address id="about">
+                Proudly powered by <a href="http://pelican.notmyidea.org/">Pelican <i class="icon-external-link"></i></a>,
+                                which takes great advantage of <a href="http://python.org">Python <i class="icon-external-link"></i></a>.
+        </address><!-- /#about -->
+
+        <p>The theme is from <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a>,
+                   and <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a>, thanks!</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+
+            <script type="text/javascript">
+    var disqus_shortname = 'importzoek';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+
+    <!-- Le javascript -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="./theme/js/jquery-1.7.2.min.js"></script>
+    <script src="./theme/js/bootstrap.min.js"></script>
+  </body>
+</html>

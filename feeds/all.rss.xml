@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>import zoek</title><link href="http://zoek1.github.com/" rel="alternate"></link><link href="http://zoek1.github.com/feeds/all-es.atom.xml" rel="self"></link><id>http://zoek1.github.com/</id><updated>2013-01-31T00:33:00-06:00</updated><entry><title>Iniciando con el debugger</title><link href="http://zoek1.github.com/Debuggers.html" rel="alternate"></link><updated>2013-01-31T00:33:00-06:00</updated><author><name>Miguel Angel Gordian (zoek)</name></author><id>tag:zoek1.github.com,2013-01-31:Debuggers.html</id><summary type="html">&lt;p&gt;Hace unos días, mientras revisaba el timeline de twitter, un tuit de mi amigo
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>import zoek</title><link>http://zoek1.github.com/</link><description></description><atom:link href="http://zoek1.github.com/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 31 Jan 2013 00:33:00 -0600</lastBuildDate><item><title>Iniciando con el debugger</title><link>http://zoek1.github.com/Debuggers.html</link><description>&lt;p&gt;Hace unos días, mientras revisaba el timeline de twitter, un tuit de mi amigo
 &lt;a class="reference external" href="https://twitter.com/metaedd"&gt;&amp;#64;metaedd&lt;/a&gt;, llamo demasiado mi atención,
 este decía lo siguiente:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -326,7 +326,7 @@ ejecutar en cada instancia.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary><category term="gdb"></category><category term="debugger"></category><category term="c"></category></entry><entry><title>Hola Mundo</title><link href="http://zoek1.github.com/Primer-post.html" rel="alternate"></link><updated>2013-01-20T22:58:00-06:00</updated><author><name>Miguel Angel Gordian (zoek)</name></author><id>tag:zoek1.github.com,2013-01-20:Primer-post.html</id><summary type="html">&lt;p&gt;Hola mundo, desde hace algun tiempo tenia la inquietud de tener un blog, la
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Miguel Angel Gordian (zoek)</dc:creator><pubDate>Thu, 31 Jan 2013 00:33:00 -0600</pubDate><guid>tag:zoek1.github.com,2013-01-31:Debuggers.html</guid><category>gdb</category><category>debugger</category><category>c</category></item><item><title>Hola Mundo</title><link>http://zoek1.github.com/Primer-post.html</link><description>&lt;p&gt;Hola mundo, desde hace algun tiempo tenia la inquietud de tener un blog, la
 motivación de esto era, es y será, compratir las noticias, vivencias, tricks
 y opiniones de lo que acontence en el mundo desde mi punto de vista.&lt;/p&gt;
 &lt;p&gt;Empezaré contando un poco de mi, soy estudiante de Ingeniería en Computación
@@ -354,4 +354,4 @@ autobiografía, les dejo un saludo citando al viejo y conocido estilo de K&amp;a
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;El lenguaje de programación C por Brian Kernighan y Dennis Ritchie.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</summary><category term="Bienvenida"></category><category term="HolaMundo"></category><category term="Python"></category></entry></feed>
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Miguel Angel Gordian (zoek)</dc:creator><pubDate>Sun, 20 Jan 2013 22:58:00 -0600</pubDate><guid>tag:zoek1.github.com,2013-01-20:Primer-post.html</guid><category>Bienvenida</category><category>HolaMundo</category><category>Python</category></item></channel></rss>

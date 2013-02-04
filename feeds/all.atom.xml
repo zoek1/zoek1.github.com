@@ -1,5 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>import zoek</title><link href="http://zoek1.github.com/" rel="alternate"></link><link href="http://zoek1.github.com/feeds/all.atom.xml" rel="self"></link><id>http://zoek1.github.com/</id><updated>2013-01-20T22:58:00+01:00</updated><entry><title>Hola Mundo</title><link href="http://zoek1.github.com/Primer-post.html" rel="alternate"></link><updated>2013-01-20T22:58:00+01:00</updated><author><name>Miguel Angel Gordian (zoek)</name></author><id>tag:zoek1.github.com,2013-01-20:Primer-post.html</id><summary type="html">&lt;p&gt;Hola mundo, desde hace algun tiempo tenia la inquietud de tener un blog, la
+<feed xmlns="http://www.w3.org/2005/Atom"><title>import zoek</title><link href="http://zoek1.github.com/" rel="alternate"></link><link href="http://zoek1.github.com/feeds/all.atom.xml" rel="self"></link><id>http://zoek1.github.com/</id><updated>2013-01-31T00:33:00-06:00</updated><entry><title>Iniciando con el debugger</title><link href="http://zoek1.github.com/Debuggers.html" rel="alternate"></link><updated>2013-01-31T00:33:00-06:00</updated><author><name>Miguel Angel Gordian (zoek)</name></author><id>tag:zoek1.github.com,2013-01-31:Debuggers.html</id><summary type="html">&lt;p&gt;Hace unos días, mientras revisaba el timeline de twitter, un tuit de mi amigo
+&lt;a class="reference external" href="https://twitter.com/metaedd"&gt;&amp;#64;metaedd&lt;/a&gt;, llamo demasiado mi atención,
+este decía lo siguiente:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Ese momento Épico cuando tu programa
+compila sin errores y  Fail cuando no corre
+de manera adecuada y ya no te marca los errores!&lt;/strong&gt;
+— &lt;em&gt;metaedd&lt;/em&gt;&lt;/blockquote&gt;
+&lt;p&gt;Sin querer, mi amigo me dio un excelente tema para publicar en este su blog y
+que ayudara a conocer a los debuggers, a ser mas productivos o mas mundana mente,
+a minimizar esas noches de desvelo o de privarnos de la sociedad para poder
+encontrar esos errores que en muchas ocasiones llegan a avergonzarnos y otras
+veces son una buena razón para quedarnos meditando con un buen café.&lt;/p&gt;
+&lt;p&gt;Retomando el tema, partiremos de la idea del tuit de la cual podemos decir que
+cuando un programa no muestra errores de compilación no necesaria mente es
+indicio de que su ejecución y su lógica es correcta. Pero ¿como podemos llegar
+a estar casi seguros de que el programa no tratara de accederá a locaciones de
+memoria no permitidas (un típico segmentation fault), o no encenderá a la
+computadora en llamas, entre otros casos menos dramáticos?.&lt;/p&gt;
+&lt;p&gt;La respuesta lógica a esta incógnita es depurar el programa, y ya respondida
+esta surge otra pregunta y esa es el ¿como llegar a hacerlo?.&lt;/p&gt;
+&lt;p&gt;Una practica muy común es poner prints o puts tanteando a lo largo del código,
+hasta encontrar el error.&lt;/p&gt;
+&lt;img alt="depuración ruda" class="align-center" src="/static/image/debug-printf.jpg" style="width: 300px; height: 400px;" /&gt;
+&lt;p&gt;¿Que si es valida esta forma? Claro que es valida, de cualquier manera es una
+forma de encontrar los errores, aunque muy poco elegante y eficiente.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;No todo lo que este en la moda, es necesariamente lo correcto&lt;/strong&gt;&lt;/blockquote&gt;
+&lt;p&gt;Dado que siempre ha existido la necesidad de solucionar errores, puesto que somos
+humanos, desarrolladores crearon herramientas que permitieran facilitar y
+optimizar esta labor, a estos se les dio el nombre de debugger o depuradores.
+Quisiera hondear un poco sobre la historia de la palabra debugger, pero sera
+para alguna otra ocasión.&lt;/p&gt;
+&lt;p&gt;Veamos por el momento la definición de debugger o depurador, cortesía de
+&lt;a class="reference external" href="http://es.wikipedia.org/wiki/Depurador"&gt;wikipedia&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;strong&gt;Un debugger o depurador es usado para probar un programa objetivo y
+eliminar sus errores.&lt;/strong&gt;&lt;/blockquote&gt;
+&lt;p&gt;Con base en la definición, un programa son instrucciones y datos, los cuales fueron
+provistos por códigos fuente escritos en algún lenguaje de programación.
+Hoy en día gran mayoría de los lenguajes de programación tienen herramientas
+que permitan, ejecutar instrucción por instrucción, linea a linea del programa
+y así facilitar así el desarrollo de software.
+A las herramientas que realizan esta tarea, se les conoce como debuggers.&lt;/p&gt;
+&lt;p&gt;Dejando de lado la palabrería y pasando a la practica les presentare un clásico
+de clásicos, el GNU Project Debugger - GDB.
+Este debugger ademas de ser código abierto provee soporte para debuggear C/C++,
+Ada, Pascal, Objective-C, entre otros.&lt;/p&gt;
+&lt;img alt="Archer - Mascota de gdb" class="align-center" src="/static/image/archer.png" style="width: 300px; height: 200px;" /&gt;
+&lt;p&gt;Para empezar necesitamos código que compile pero que tenga algunos errores,
+yo propongo algo sencillo para comenzar a aprender.&lt;/p&gt;
+&lt;p&gt;La función que debe cumplir este programa es crear un arreglo con longitud TAM,
+con un ciclo asignar a cada posición su respectivo indice, y en otro ciclo imprimir
+el contenido de cada locación.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+&lt;span class="cp"&gt;#define TAM 3&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+    &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;TAM&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;numeros&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;TAM&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
+
+    &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;numeros&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+    &lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;TAM&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;%d&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;numeros&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt;
+
+     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+ &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ahora compilemos el programa de la siguiente manera:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;debug$ gcc debugger-1.c -ggdb3 -o debugger-1.c&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Lo que indicamos en la linea de comando es, que incluya los símbolos de depuración
+en el binario. Específicamente con la opción -ggdb indicamos que genere información
+de depuración para ser usada por gdb la cual deberá de ser lo mas explicita posible,
+de acuerdo al manual este podría ser alguno de los formatos dwarf 2, stabs o el
+formato nativo y el numero tres indica el nivel de información que requerimos. El
+nivel por defecto es el 2, este incluye descripción de funciones, de variables
+externas e internas y numeros de linea. El tres va un poco mas halla, este incluye
+todas las definiciones de macros presentes en el programa.&lt;/p&gt;
+&lt;p&gt;Ejecutemos el programa para verificar que tenemos un código erróneo.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;debug$ ./debugger-1&lt;/span&gt;
+&lt;span class="go"&gt;-1074137012&lt;/span&gt;
+&lt;span class="go"&gt;-1&lt;/span&gt;
+&lt;span class="go"&gt;0&lt;/span&gt;
+&lt;span class="go"&gt;1&lt;/span&gt;
+&lt;span class="go"&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Nuestro código esta imprimiendo algo de basura, por lo que completamos la &amp;quot;difícil&amp;quot;
+tarea de tener un código erróneo. Ahora solo queda llamar a gdb pasando le como
+parámetro nuestro ejecutable, puede llegar a verse de la siguiente manera la
+bienvenida.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;debug$ gdb debugger-1&lt;/span&gt;
+&lt;span class="go"&gt;GNU gdb (GDB) 7.5.1&lt;/span&gt;
+&lt;span class="go"&gt;Copyright (C) 2012 Free Software Foundation, Inc.&lt;/span&gt;
+&lt;span class="go"&gt;License GPLv3+: GNU GPL version 3 or later &amp;lt;http://gnu.org/licenses/gpl.html&amp;gt;&lt;/span&gt;
+&lt;span class="go"&gt;This is free software: you are free to change and redistribute it.&lt;/span&gt;
+&lt;span class="go"&gt;There is NO WARRANTY, to the extent permitted by law.  Type &amp;quot;show copying&amp;quot;&lt;/span&gt;
+&lt;span class="go"&gt;and &amp;quot;show warranty&amp;quot; for details.&lt;/span&gt;
+&lt;span class="go"&gt;This GDB was configured as &amp;quot;i686-pc-linux-gnu&amp;quot;.&lt;/span&gt;
+&lt;span class="go"&gt;For bug reporting instructions, please see:&lt;/span&gt;
+&lt;span class="go"&gt;&amp;lt;http://www.gnu.org/software/gdb/bugs/&amp;gt;...&lt;/span&gt;
+&lt;span class="go"&gt;Reading symbols from /home/zoek/code/c/debugger-1...done.&lt;/span&gt;
+&lt;span class="go"&gt;(gdb)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Se debe de tomar especial atención en la última linea de la bienvenida, ya que
+se indica que la información de depuración es correcta y se puede proseguir con la
+depuración correctamente. Cuando un ejecutable no incluye la información de
+depuración, en esta misma linea nos indicara que no pudieron ser cargador los
+símbolos de depuración, por lo cual no podremos hacer la depuración correctamente.&lt;/p&gt;
+&lt;p&gt;GDB cuenta con su propio prompt, este se muestra inicialmente como (gdb) y al igual
+que el del shell, utiliza readline dando así acceso a las combinaciones de teclas de
+acceso rápido de emacs o de vi, también te ofrece la posibilidad de auto-completar ya
+sean los comando o las definiciones de los elementos del programa.&lt;/p&gt;
+&lt;p&gt;Para empezar a depurar nuestro programa, lo primero a hacer es establecer un punto
+de interrupción, para así poder detener la ejecución del programa esto se hace con el
+comando break mas un argumento el cual puede ser una definición de función, un numero
+de linea, una etiqueta o una dirección valida del programa. En este momento
+utilizaremos una definición de función detener la ejecución, pero en futuras ocasiones
+describiré cada uno de los especificadores de locación validos. Estableceré
+el punto de interrupción en la definición de la función main dado que es la única en
+el código.&lt;/p&gt;
+&lt;p&gt;Algo que debo de destacar es que algunos de los comando de gdb tienen sus respectivas
+abreviaciones como es el caso de break y su abreviación es 'b' o el de run que es 'r'.
+&lt;strong&gt;Se debe tener en claro que solo son algunos de los comandos, los que tienen abreviación.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) break main&lt;/span&gt;
+&lt;span class="go"&gt;Breakpoint 1 at 0x8048405: file debugger-1.c, line 5.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;La salida nos muestra que el punto de interrupción ha sido correctamente establecido
+en la dirección 0x8048405 y que la definición se encuentra en el archivo debugger-1.c,
+en la linea 5. La dirección depende de la posición en la que es colocado el programa.&lt;/p&gt;
+&lt;p&gt;Ahora que ya tenemos el punto de interrupción podemos ejecutar el programa con la
+plena seguridad de que no terminara su ejecución antes de que parpadeemos, si no
+que se detendrá cuando inicia la definición de la función.
+El comando para empezar la ejecución del programa es run y puede ir seguido si
+este los requiere de opciones como si fuese una orden en el shell, en nuestro caso
+no las utilizaremos.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) r&lt;/span&gt;
+&lt;span class="go"&gt;Starting program: /home/zoek/code/c/debugger-1&lt;/span&gt;
+
+&lt;span class="go"&gt;Breakpoint 1, main () at debugger-1.c:5&lt;/span&gt;
+&lt;span class="go"&gt;5      int i=TAM, numeros[TAM];&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;La salida después de ejecutar el comando run, señala que el programa se ha detenido
+el el punto de interrupción 1, en la definición de main, también muestra el numero
+de linea y la siguiente instrucción a ejecutar, esto es que la linea 5 la cual tiene
+la declaración de i y numeros, es la próxima instrucción a ejecutar.&lt;/p&gt;
+&lt;p&gt;Para reanudar la ejecución del programa una instrucción a la vez, existen varios
+comando pero en esta ocasión solo expondremos los mas comunes y estos son step y
+next. La diferencia entre estos dos se basa en que step ejecuta una instrucción a
+la vez y si la siguiente instrucción fuese una función de la cual se tienen los
+símbolos de depuración, entonces saltaría dentro de la definición de la función,
+mientras que next ejecutaría la función sin adentrarse en ella. También estos dos
+comandos cuentan con sus abreviaturas 's' para step y 'n' para next.&lt;/p&gt;
+&lt;p&gt;Continuando con el programa, ejecutemos step hasta llegar al ciclo, adentrémonos
+en el ciclo e imprimamos el valor de i en cada iteración para asegurarnos que los
+valores del 2 a 0 están siendo asignados correctamente.&lt;/p&gt;
+&lt;p&gt;Para obtener la impresión de los valores, contamos con el comando print el cual
+imprime la información acorde al tipo de dato del elemento que le pasemos como
+argumento o también existe el comando printf y su sintaxis es casi igual al printf
+en c solo que sin paréntesis, la cadena de formato y la lista de argumentos de
+donde se tomaran las representación se especifican de igual manera.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;7      while(i-- &amp;gt;= 0)&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) print i&lt;/span&gt;
+&lt;span class="gp"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 3
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;8        numeros[i] = i;&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;7      while(i-- &amp;gt;= 0)&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) printf &amp;quot;numeros[%d] = %d\n&amp;quot;,i,numeros[i]&lt;/span&gt;
+&lt;span class="go"&gt;numeros[2] = 2&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;8        numeros[i] = i;&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;7      while(i-- &amp;gt;= 0)&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) printf &amp;quot;numeros[%d] = %d\n&amp;quot;,i,numeros[i]&lt;/span&gt;
+&lt;span class="go"&gt;numeros[1] = 1&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;8        numeros[i] = i;&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;7      while(i-- &amp;gt;= 0)&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) printf &amp;quot;numeros[%d] = %d\n&amp;quot;,i,numeros[i]&lt;/span&gt;
+&lt;span class="go"&gt;numeros[0] = 0&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;8        numeros[i] = i;&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;7      while(i-- &amp;gt;= 0)&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) printf &amp;quot;numeros[%d] = %d\n&amp;quot;,i,numeros[i]&lt;/span&gt;
+&lt;span class="go"&gt;numeros[-1] = -1&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) s&lt;/span&gt;
+&lt;span class="go"&gt;10     while(i &amp;lt; TAM)&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) print i&lt;/span&gt;
+&lt;span class="gp"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; -2
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Como se puede observar el valor de i después de el ciclo de asignación es -2, esto
+es sin duda erróneo pues un indice negativo, se halla fuera del espacio reservado
+para el array y puede llegar a modificar otros datos, pero es permisible debido a
+que nos encontramos dentro del área designada al programa.&lt;/p&gt;
+&lt;p&gt;Entonces tenemos claro que hay un error de lógica, de lo observado podríamos hacer
+algunas conjeturas:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Las operaciones aplicadas sobre la variable i que actúa como indice,
+nos da un numero menor al esperado que es 0.&lt;/li&gt;
+&lt;li&gt;El segundo ciclo ejecuta correctamente su código, mostrando cada uno de los
+valores almacenados.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Dadas estas conjeturas podemos concluir que si la variable i al terminar
+el ciclo tuviera el valor de 0, el segundo while iteraría acorde a la lógica
+del programa y accedería a las locaciones de memoria verdaderas.&lt;/p&gt;
+&lt;p&gt;Demostremos si esta conclusión es verdadera estableciendo el valor de i a 0 y
+ejecutando la instrucción until dándole como argumento la posición a detenerse.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) set variable i = 0&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) until 12&lt;/span&gt;
+&lt;span class="go"&gt;0&lt;/span&gt;
+&lt;span class="go"&gt;1&lt;/span&gt;
+&lt;span class="go"&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Efectivamente, la conclusión fue correcta pero lo que verdad importa son los
+comandos set y until, hablemos un poco de ellos.&lt;/p&gt;
+&lt;p&gt;set es un comando de gdb que permite asignar valores a las variables, pero para
+hacer distinción de las variable que usa gdb para las configuración y las del
+programa se antepone la palabra var o variable antes de la asignación de la
+variable del programa. Se puede ejecutar sin la palabra variable pero debemos
+tener cuidado de que no entre en conflicto con los sub-comandos de set.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) set i = 0&lt;/span&gt;
+&lt;span class="go"&gt;Ambiguous set command &amp;quot;i = 0&amp;quot;: inferior-tty, input-radix, interactive-mode.&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) set i=0&lt;/span&gt;
+&lt;span class="go"&gt;Ambiguous set command &amp;quot;i=0&amp;quot;: .&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;En este caso tenemos dos errores, pero son ocasionados por la misma razón, en el
+primer caso no sabe que comando ejecutar de los tres disponibles, en el segundo
+caso el signo '=' que actúa como delimitador, la i fue expandida para buscar
+coincidencias dado que tiene comando que comienzan con esta letra, pero al momento
+de mostrar las coincidencias no existe ninguna posible.&lt;/p&gt;
+&lt;p&gt;EL comando until al igual que muchos de los comandos tiene distintas funcionalidades.
+Las de until son evitar el dar step en cada iteración mas de una vez, esto es que
+si tenemos un ciclo solo tendremos que recorrerlo una vez y cuando nos encontremos
+nuevamente en el inicio del ciclo podremos escribir until, esto activara la ejecución
+y se detendrán las iteraciones solo hasta que la condicional no se cumpla o trate de
+salir de su stack frame.
+Otra forma de utilizar el comando until es indicarle una locación hasta donde deberá
+parar su ejecución, esta puede ser una linea, una dirección, una etiqueta o una
+definición de una función dentro del stack frame o al hasta que abandone su
+stack frame.&lt;/p&gt;
+&lt;p&gt;Volvamos al código del programa ha corregir los errores, debemos de cambiar el
+operador de '&amp;gt;=' cambiarlo ha '&amp;gt;' por la razón de que cuando sea cero habrá iterado
+tres veces, el tamaño del arreglo, y transferiremos el decremento de la variable
+localizado en la condicional, un poco antes del direccionamiento para así asignar
+los indices correctos.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;numeros&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Algo interesante de gdb es que puedes correr comandos del shell, y todo esto se
+hace mediante el comando shell.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) shell gcc debugger-1.c -ggdb3 -o debugger-1&lt;/span&gt;
+&lt;span class="go"&gt;(gdb) r&lt;/span&gt;
+&lt;span class="go"&gt;Starting program: /home/zoek/code/c/debugger-1&lt;/span&gt;
+&lt;span class="go"&gt;Breakpoint 1, main () at debugger-1.c:10&lt;/span&gt;
+&lt;span class="go"&gt;10     int i=TAM, numeros[TAM];&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Al compilar nuevamente el programa y volver a ejecutarlo, gdb leerá nuevamente
+la información de depuración y los break que establecimos anteriormente seguirán
+siendo validos. El programa detendrá su ejecución al inicio de la función main,
+como no establecimos ningún otro punto de interrupción podremos ejecutar el
+comando continue o su abreviación c para simular una ejecución común del programa.
+Aclaro que si establecieron otros puntos de interrupción, continue se dentendrá en
+sus respectivas posiciones.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) continue&lt;/span&gt;
+&lt;span class="go"&gt;Continuing.&lt;/span&gt;
+&lt;span class="go"&gt;0&lt;/span&gt;
+&lt;span class="go"&gt;1&lt;/span&gt;
+&lt;span class="go"&gt;2&lt;/span&gt;
+&lt;span class="go"&gt;[Inferior 1 (process 27759) exited normally]&lt;/span&gt;
+&lt;span class="go"&gt;(gdb)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Cuando hallamos terminado el proceso de depuración, podemos llegar a retirar la
+información de depuración sin tener que volver a compilar el programa sin las
+flags, esto se hace por medio del programa &lt;a class="reference external" href="http://linux.die.net/man/1/strip"&gt;strip&lt;/a&gt;
+que forma parte de el paquete &lt;a class="reference external" href="http://www.gnu.org/software/binutils/"&gt;binutils&lt;/a&gt; y
+una manera sencilla de eliminar los símbolos es:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;debug$ strip --strip-debug debugger-1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Con la eliminación de la información de depuración, finalizo este post, en el
+siguiente tocare los puntos de seguir a los procesos hijo, configurar un poco
+a gdb y hacer snapshots del estado del proceso.&lt;/p&gt;
+&lt;div class="section" id="gdb-tip"&gt;
+&lt;h2&gt;GDB TIP&lt;/h2&gt;
+&lt;p&gt;El gdb tip consiste en poder visualizar el código fuente, si es que en el binario
+ha sido incluida la información de depuración.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) l&lt;/span&gt;
+&lt;span class="go"&gt;3&lt;/span&gt;
+&lt;span class="go"&gt;4    int main(){&lt;/span&gt;
+&lt;span class="go"&gt;5      int i=TAM, numeros[TAM];&lt;/span&gt;
+&lt;span class="go"&gt;6&lt;/span&gt;
+&lt;span class="go"&gt;7      while(i &amp;gt; 0)&lt;/span&gt;
+&lt;span class="go"&gt;8        numeros[--i] = i;&lt;/span&gt;
+&lt;span class="go"&gt;9&lt;/span&gt;
+&lt;span class="go"&gt;10     while(i &amp;lt; TAM)&lt;/span&gt;
+&lt;span class="go"&gt;11       printf(&amp;quot;%d\n&amp;quot;, numeros[i++]);&lt;/span&gt;
+&lt;span class="go"&gt;12&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;El comando list es simple, cuando especificas list sin argumentos imprime diez o mas
+lineas, si se ejecuto anteriormente list, imprime las siguientes diez lineas,
+pero si se encuentra en la parte final del stack frame actual entonces se muestra
+centrada la linea actual.
+Con el argumento '-' imprime las diez lineas anteriores a las ya impresas si se
+ejecuto list anteriormente o las 10 anteriores a la actual.
+Si se especifica una linea o una función, la linea actual se encontrara centrada.
+Cabe aclara que si se ejecuta un comando que cambie la linea actual, y se vuelve
+a ejecutar list, este comando mostrara las lineas como si hubiese sido la primera
+vez que se ejecuta.&lt;/p&gt;
+&lt;div class="note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;La secuencia de los comandos mostrados no es necesariamente la ideal, fue hecha
+para fines de enseñanza y el usuario es libre de tomar la decisión de que comando
+ejecutar en cada instancia.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;EOF&lt;/p&gt;
+&lt;p class="rubric"&gt;Footnotes&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id1" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;[0]&lt;/td&gt;&lt;td&gt;&lt;a class="reference external" href="http://sourceware.org/gdb/download/onlinedocs/"&gt;Debugging with gdb, Richard Stallman, Roland Pesch, Stan Shebs, et al.&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</summary><category term="gdb"></category><category term="debugger"></category><category term="c"></category></entry><entry><title>Hola Mundo</title><link href="http://zoek1.github.com/Primer-post.html" rel="alternate"></link><updated>2013-01-20T22:58:00-06:00</updated><author><name>Miguel Angel Gordian (zoek)</name></author><id>tag:zoek1.github.com,2013-01-20:Primer-post.html</id><summary type="html">&lt;p&gt;Hola mundo, desde hace algun tiempo tenia la inquietud de tener un blog, la
 motivación de esto era, es y será, compratir las noticias, vivencias, tricks
 y opiniones de lo que acontence en el mundo desde mi punto de vista.&lt;/p&gt;
 &lt;p&gt;Empezaré contando un poco de mi, soy estudiante de Ingeniería en Computación
