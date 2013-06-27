@@ -1,124 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Iniciando con el debugger</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Miguel Angel Gordián">
+<head>
+        <title>Iniciando con el debugger</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="http://zoek1.github.com/theme/css/main.css" type="text/css" />
+   
 
-    <!-- Le styles -->
-    <link rel="stylesheet" href="./theme/css/bootstrap.min.css" type="text/css" />
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-      .tag-1 {
-        font-size: 13pt;
-      }
-      .tag-2 {
-        font-size: 10pt;
-      }
-      .tag-2 {
-        font-size: 8pt;
-      }
-      .tag-4 {
-        font-size: 6pt;
-     }
-    </style>
-    <link href="./theme/css/bootstrap-responsive.min.css" rel="stylesheet">
-        <link href="./theme/css/font-awesome.css" rel="stylesheet">
+        <!--[if IE]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-    <link href="./theme/css/pygments.css" rel="stylesheet">
+        <!--[if lte IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href="http://zoek1.github.com/css/ie.css"/>
+                <script src="http://zoek1.github.com/js/IE8.js" type="text/javascript"></script><![endif]-->
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+        <!--[if lt IE 7]>
+                <link rel="stylesheet" type="text/css" media="all" href="http://zoek1.github.com/css/ie6.css"/><![endif]-->
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="./theme/images/favicon.ico">
-    <link rel="apple-touch-icon" href="./theme/images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="./theme/images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="./theme/images/apple-touch-icon-114x114.png">
+</head>
 
-    <link href="./" type="application/atom+xml" rel="alternate" title="import zoek ATOM Feed" />
-    
-  </head>
+<body id="index" class="home">
+<a href="http://github.com/zoek1/">
+<img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" />
+</a>
+        <header id="banner" class="body">
+                <h1><a href="http://zoek1.github.com">import zoek </a></h1>
+                <nav><ul>
+                                                                                                    <li class="active"><a href="http://zoek1.github.com/category/programacion.html">Programación</a></li>
+                                    <li ><a href="http://zoek1.github.com/category/python.html">Python</a></li>
+                                </ul></nav>
+        </header><!-- /#banner -->
+        <section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="Debuggers.html" rel="bookmark"
+           title="Permalink to Iniciando con el debugger">Iniciando con el debugger</a></h1>
+          </header>
 
-  <body>
+    <div class="entry-content">
+      <footer class="post-info">
+        <abbr class="published" title="2013-01-31T00:33:00">
+                jue 31 enero 2013
+        </abbr>
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="./index.html">import zoek </a>
-          <div class="nav-collapse">
-            <ul class="nav">
-                                                                    <li class="divider-vertical"></li>
-                                              <li class="active">
-                    <a href="./category/programacion.html">
-						<i class="icon-folder-open icon-large"></i>Programación
-					</a>
-                  </li>
-                                <li >
-                    <a href="./category/python.html">
-						<i class="icon-folder-open icon-large"></i>Python
-					</a>
-                  </li>
-              
-                          <ul class="nav pull-right">
-                                <li><a href="./archives.html"><i class="icon-th-list"></i>Archives</a></li>
-                          </ul>
-
-            </ul>
-            <!--<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>-->
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="span9" id="content">
-            <section id="content">
-        <article>
-                <header>
-                        <h1>
-                                <a href=""
-                                        rel="bookmark"
-                                        title="Permalink to Iniciando con el debugger">
-                                        Iniciando con el debugger
-                                </a>
-                                                        </h1>
-                </header>
-                <div class="entry-content">
-                <div class="well">
-                        <footer class="post-info">
-<span class="label">Date</span>
-<abbr class="published" title="2013-01-31T00:33:00">
-        <i class="icon-calendar"></i>jue 31 enero 2013
-</abbr>
-<span class="label">By</span>
-<a href="./author/miguel-angel-gordian-zoek.html"><i class="icon-user"></i>Miguel Angel Gordian (zoek)</a>
-<span class="label">Category</span>
-<a href="./category/programacion.html"><i class="icon-folder-open"></i>Programación</a>.
-
-
-<span class="label">Tags</span>
-	<a href="./tag/gdb.html"><i class="icon-tag"></i>gdb</a>
-	<a href="./tag/debugger.html"><i class="icon-tag"></i>debugger</a>
-	<a href="./tag/c.html"><i class="icon-tag"></i>c</a>
-</footer><!-- /.post-info -->                </div>
-                <p>Hace unos días, mientras revisaba el timeline de twitter, un tuit de mi amigo
+                <address class="vcard author">
+                By <a class="url fn" href="http://zoek1.github.com/author/miguel-angel-gordian-zoek.html">Miguel Angel Gordian (zoek)</a>
+        </address>
+        <p>In <a href="http://zoek1.github.com/category/programacion.html">Programación</a>. </p>
+<p>tags: <a href="http://zoek1.github.com/tag/gdb.html">gdb</a><a href="http://zoek1.github.com/tag/debugger.html">debugger</a><a href="http://zoek1.github.com/tag/c.html">c</a></p></footer><!-- /.post-info -->      <p>Hace unos días, mientras revisaba el timeline de twitter, un tuit de mi amigo
 <a class="reference external" href="https://twitter.com/metaedd">&#64;metaedd</a>, llamo demasiado mi atención,
 este decía lo siguiente:</p>
 <blockquote>
@@ -142,7 +71,7 @@ esta surge otra pregunta y esa es el ¿como llegar a hacerlo?.</p>
 <p>Una practica muy común es poner prints o puts tanteando a lo largo del código,
 hasta encontrar el error.</p>
 <img alt="depuración ruda" class="align-center" src="/static/image/debug-printf.jpg" style="width: 300px; height: 400px;" />
-<p>¿Que si es valida esta forma? Claro que es valida, de cualquier manera es una
+<p>¿Qué si es valida esta forma? Claro que es valida, de cualquier manera es una
 forma de encontrar los errores, aunque muy poco elegante y eficiente.</p>
 <blockquote>
 <strong>No todo lo que este en la moda, es necesariamente lo correcto</strong></blockquote>
@@ -262,9 +191,9 @@ no las utilizaremos.</p>
 <span class="go">5      int i=TAM, numeros[TAM];</span>
 </pre></div>
 <p>La salida después de ejecutar el comando run, señala que el programa se ha detenido
-el el punto de interrupción 1, en la definición de main, también muestra el numero
+en el punto de interrupción 1, en la definición de main, también muestra el numero
 de linea y la siguiente instrucción a ejecutar, esto es que la linea 5 la cual tiene
-la declaración de i y numeros, es la próxima instrucción a ejecutar.</p>
+la declaración de i y números, es la próxima instrucción a ejecutar.</p>
 <p>Para reanudar la ejecución del programa una instrucción a la vez, existen varios
 comando pero en esta ocasión solo expondremos los mas comunes y estos son step y
 next. La diferencia entre estos dos se basa en que step ejecuta una instrucción a
@@ -314,13 +243,13 @@ donde se tomaran las representación se especifican de igual manera.</p>
 <span class="gp">$</span><span class="nv">2</span> <span class="o">=</span> -2
 </pre></div>
 <p>Como se puede observar el valor de i después de el ciclo de asignación es -2, esto
-es sin duda erróneo pues un indice negativo, se halla fuera del espacio reservado
+es sin duda erróneo pues un índice negativo, se halla fuera del espacio reservado
 para el array y puede llegar a modificar otros datos, pero es permisible debido a
 que nos encontramos dentro del área designada al programa.</p>
 <p>Entonces tenemos claro que hay un error de lógica, de lo observado podríamos hacer
 algunas conjeturas:</p>
 <ol class="arabic simple">
-<li>Las operaciones aplicadas sobre la variable i que actúa como indice,
+<li>Las operaciones aplicadas sobre la variable i que actúa como índice,
 nos da un numero menor al esperado que es 0.</li>
 <li>El segundo ciclo ejecuta correctamente su código, mostrando cada uno de los
 valores almacenados.</li>
@@ -367,7 +296,7 @@ stack frame.</p>
 operador de '&gt;=' cambiarlo ha '&gt;' por la razón de que cuando sea cero habrá iterado
 tres veces, el tamaño del arreglo, y transferiremos el decremento de la variable
 localizado en la condicional, un poco antes del direccionamiento para así asignar
-los indices correctos.</p>
+los índices correctos.</p>
 <div class="highlight"><pre><span class="k">while</span><span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">numeros</span><span class="p">[</span><span class="o">--</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
 </pre></div>
@@ -384,7 +313,7 @@ la información de depuración y los break que establecimos anteriormente seguir
 siendo validos. El programa detendrá su ejecución al inicio de la función main,
 como no establecimos ningún otro punto de interrupción podremos ejecutar el
 comando continue o su abreviación c para simular una ejecución común del programa.
-Aclaro que si establecieron otros puntos de interrupción, continue se dentendrá en
+Aclaro que si establecieron otros puntos de interrupción, continue se detendrá en
 sus respectivas posiciones.</p>
 <div class="highlight"><pre><span class="go">(gdb) continue</span>
 <span class="go">Continuing.</span>
@@ -446,104 +375,49 @@ ejecutar en cada instancia.</p>
 </table>
 </div>
 
-                </div><!-- /.entry-content -->
-                                <div class="comments">
-                <h2>Comments !</h2>
-                        <div id="disqus_thread"></div>
-                        <script type="text/javascript">
-                           var disqus_identifier = "Debuggers.html";
-                           (function() {
-                                var dsq = document.createElement('script');
-                                dsq.type = 'text/javascript'; dsq.async = true;
-                                dsq.src = 'http://importzoek.disqus.com/embed.js';
-                                (document.getElementsByTagName('head')[0] ||
-                                 document.getElementsByTagName('body')[0]).appendChild(dsq);
-                          })();
-                        </script>
-                </div>
-                        </article>
+    </div><!-- /.entry-content -->
+        <div class="comments">
+      <h2>Comments !</h2>
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_identifier = "Debuggers.html";
+        (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://importzoek.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+    </div>
+    
+  </article>
 </section>
-        </div><!--/span-->
+        <section id="extras" class="body">
+                        <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                                                    <li><a href="http://docs.notmyidea.org/alexis/pelican/">Pelican</a></li>
+                                                    <li><a href="http://python.org">Python.org</a></li>
+                                                    <li><a href="http://jinja.pocoo.org">Jinja2</a></li>
+                                                    <li><a href="http://whattheemacsd.com/">What the .emacs.d!?</a></li>
+                                                </ul>
+                </div><!-- /.blogroll -->
+                                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+                            
+                                                    <li><a href="https://twitter.com/Zooekk">twitter</a></li>
+                                                    <li><a href="https://github.com/zoek1">github</a></li>
+                                                    <li><a href="https://plus.google.com/u/0/110987674730669222270/">google</a></li>
+                                                    <li><a href="https://speakerdeck.com/zoek1">speaker deck</a></li>
+                                                </ul>
+                </div><!-- /.social -->
+                </section><!-- /#extras -->
 
-                <div class="span3 well sidebar-nav" id="sidebar">
-            <ul class="nav nav-list">
-<li class="nav-header"><h4><i class="icon-external-link"></i>blogroll</h4></li>
-    <li><a href="http://docs.notmyidea.org/alexis/pelican/"><i class="icon-external-link"></i>Pelican</a></li>
-    <li><a href="http://python.org"><i class="icon-external-link"></i>Python.org</a></li>
-    <li><a href="http://jinja.pocoo.org"><i class="icon-external-link"></i>Jinja2</a></li>
-    <li><a href="http://whattheemacsd.com/"><i class="icon-external-link"></i>What the .emacs.d!?</a></li>
-<li class="nav-header"><h4><i class="icon-home icon-large"></i> social</h4></li>
-<li><a href="http://zoek1.github.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"><i class="icon-bookmark icon-large"></i>atom feed</a></li>
-<li><a href="http://zoek1.github.com/feeds/all.rss.xml" type="application/rss+xml" rel="alternate"><i class="icon-bookmark icon-large"></i>rss feed</a></li>
-    <li><a href="https://twitter.com/Zooekk"><i class="icon-twitter-sign icon-large"></i>twitter</a></li>
-    <li><a href="https://github.com/zoek1"><i class="icon-github-sign icon-large"></i>github</a></li>
-    <li><a href="https://plus.google.com/u/0/110987674730669222270/"><i class="icon-google-sign icon-large"></i>google</a></li>
+        <footer id="contentinfo" class="body">
 
-<li class="nav-header"><h4><i class="icon-folder-close icon-large"></i>Categories</h4></li>
-<li>
-<a href="./category/programacion.html">
-    <i class="icon-folder-open icon-large"></i>Programación
-</a>
-</li>
-<li>
-<a href="./category/python.html">
-    <i class="icon-folder-open icon-large"></i>Python
-</a>
-</li>
+        </footer><!-- /#contentinfo -->
 
-<li class="nav-header"><h4><i class="icon-tags icon-large"></i>Tags</h4></li>
-<li class="tag-4">
-    <a href="./tag/bienvenida.html">
-        <i class="icon-tag icon-large"></i>Bienvenida
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/debugger.html">
-        <i class="icon-tag icon-large"></i>debugger
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/python.html">
-        <i class="icon-tag icon-large"></i>Python
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/c.html">
-        <i class="icon-tag icon-large"></i>c
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/holamundo.html">
-        <i class="icon-tag icon-large"></i>HolaMundo
-    </a>
-</li>
-<li class="tag-4">
-    <a href="./tag/gdb.html">
-        <i class="icon-tag icon-large"></i>gdb
-    </a>
-</li>
-
-
-</ul>        </div><!--/.well -->
-
-      </div><!--/row-->
-
-      <hr>
-
-      <footer>
-        <address id="about">
-                Proudly powered by <a href="http://pelican.notmyidea.org/">Pelican <i class="icon-external-link"></i></a>,
-                                which takes great advantage of <a href="http://python.org">Python <i class="icon-external-link"></i></a>.
-        </address><!-- /#about -->
-
-        <p>The theme is from <a href="http://twitter.github.com/bootstrap/">Bootstrap from Twitter <i class="icon-external-link"></i></a>,
-                   and <a href="http://fortawesome.github.com/Font-Awesome/">Font-Awesome <i class="icon-external-link"></i></a>, thanks!</p>
-      </footer>
-
-    </div><!--/.fluid-container-->
-
-
-            <script type="text/javascript">
+<script type="text/javascript">
     var disqus_shortname = 'importzoek';
     (function () {
         var s = document.createElement('script'); s.async = true;
@@ -552,10 +426,5 @@ ejecutar en cada instancia.</p>
         (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
     }());
 </script>
-
-    <!-- Le javascript -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./theme/js/jquery-1.7.2.min.js"></script>
-    <script src="./theme/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>

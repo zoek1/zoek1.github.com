@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>import zoek</title><link>http://zoek1.github.com/</link><description></description><atom:link href="http://zoek1.github.com/feeds/python.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 20 Jan 2013 22:58:00 -0600</lastBuildDate><item><title>Hola Mundo</title><link>http://zoek1.github.com/Primer-post.html</link><description>&lt;p&gt;Hola mundo, desde hace algun tiempo tenia la inquietud de tener un blog, la
+motivación de esto era, es y será, compratir las noticias, vivencias, tricks
+y opiniones de lo que acontence en el mundo desde mi punto de vista.&lt;/p&gt;
+&lt;p&gt;Empezaré contando un poco de mi, soy estudiante de Ingeniería en Computación
+en la Benemérita Universidad Autónoma de Puebla (BUAP), formo parte de la
+comunidad &lt;a class="reference external" href="http://aztli.cs.buap.mx"&gt;Aztli&lt;/a&gt;, la cual se dedica a desarrollar
+una distro GNU/Linux, principalmente enfocada a usuarios finales y alumnos de
+las carreras de Ingeniería y Licenciatura en Computación.&lt;/p&gt;
+&lt;img alt="cuauhtli logo" class="align-center" src="/static/image/cuauhtli.png" style="width: 300px; height: 300px;" /&gt;
+&lt;p&gt;Soy un fanático de emacs y la programación, soy un creyente del open
+source, la cual pienso es una manera de que avanze mas rápido y mejor el mundo.&lt;/p&gt;
+&lt;p&gt;Esto es realmente es un poco de lo que me identifica y dando por concluido esta
+autobiografía, les dejo un saludo citando al viejo y conocido estilo de K&amp;amp;R &lt;a class="footnote-reference" href="#id2" id="id1"&gt;[1]&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;lt;stdio.h&amp;gt;&lt;/span&gt;
+
+&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;argc&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;char&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;argv&lt;/span&gt;&lt;span class="p"&gt;[])&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;printf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Hola mundo &lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;EOF&lt;/p&gt;
+&lt;p class="rubric"&gt;Footnotes&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id2" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label" /&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;El lenguaje de programación C por Brian Kernighan y Dennis Ritchie.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Miguel Angel Gordian (zoek)</dc:creator><pubDate>Sun, 20 Jan 2013 22:58:00 -0600</pubDate><guid>tag:zoek1.github.com,2013-01-20:Primer-post.html</guid><category>Bienvenida</category><category>HolaMundo</category><category>Python</category></item></channel></rss>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>import zoek</title><link>http://zoek1.github.com/</link><description></description><atom:link href="http://zoek1.github.com/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 31 Jan 2013 00:33:00 -0600</lastBuildDate><item><title>Iniciando con el debugger</title><link>http://zoek1.github.com/Debuggers.html</link><description>&lt;p&gt;Hace unos días, mientras revisaba el timeline de twitter, un tuit de mi amigo
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>import zoek</title><link>http://zoek1.github.com/</link><description></description><atom:link href="http://zoek1.github.com/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 31 Jan 2013 00:33:00 -0600</lastBuildDate><item><title>Iniciando con el debugger</title><link>http://zoek1.github.com/Debuggers.html</link><description>&lt;p&gt;Hace unos días, mientras revisaba el timeline de twitter, un tuit de mi amigo
 &lt;a class="reference external" href="https://twitter.com/metaedd"&gt;&amp;#64;metaedd&lt;/a&gt;, llamo demasiado mi atención,
 este decía lo siguiente:&lt;/p&gt;
 &lt;blockquote&gt;
@@ -23,7 +23,7 @@ esta surge otra pregunta y esa es el ¿como llegar a hacerlo?.&lt;/p&gt;
 &lt;p&gt;Una practica muy común es poner prints o puts tanteando a lo largo del código,
 hasta encontrar el error.&lt;/p&gt;
 &lt;img alt="depuración ruda" class="align-center" src="/static/image/debug-printf.jpg" style="width: 300px; height: 400px;" /&gt;
-&lt;p&gt;¿Que si es valida esta forma? Claro que es valida, de cualquier manera es una
+&lt;p&gt;¿Qué si es valida esta forma? Claro que es valida, de cualquier manera es una
 forma de encontrar los errores, aunque muy poco elegante y eficiente.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;strong&gt;No todo lo que este en la moda, es necesariamente lo correcto&lt;/strong&gt;&lt;/blockquote&gt;
@@ -143,9 +143,9 @@ no las utilizaremos.&lt;/p&gt;
 &lt;span class="go"&gt;5      int i=TAM, numeros[TAM];&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;La salida después de ejecutar el comando run, señala que el programa se ha detenido
-el el punto de interrupción 1, en la definición de main, también muestra el numero
+en el punto de interrupción 1, en la definición de main, también muestra el numero
 de linea y la siguiente instrucción a ejecutar, esto es que la linea 5 la cual tiene
-la declaración de i y numeros, es la próxima instrucción a ejecutar.&lt;/p&gt;
+la declaración de i y números, es la próxima instrucción a ejecutar.&lt;/p&gt;
 &lt;p&gt;Para reanudar la ejecución del programa una instrucción a la vez, existen varios
 comando pero en esta ocasión solo expondremos los mas comunes y estos son step y
 next. La diferencia entre estos dos se basa en que step ejecuta una instrucción a
@@ -195,13 +195,13 @@ donde se tomaran las representación se especifican de igual manera.&lt;/p&gt;
 &lt;span class="gp"&gt;$&lt;/span&gt;&lt;span class="nv"&gt;2&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; -2
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Como se puede observar el valor de i después de el ciclo de asignación es -2, esto
-es sin duda erróneo pues un indice negativo, se halla fuera del espacio reservado
+es sin duda erróneo pues un índice negativo, se halla fuera del espacio reservado
 para el array y puede llegar a modificar otros datos, pero es permisible debido a
 que nos encontramos dentro del área designada al programa.&lt;/p&gt;
 &lt;p&gt;Entonces tenemos claro que hay un error de lógica, de lo observado podríamos hacer
 algunas conjeturas:&lt;/p&gt;
 &lt;ol class="arabic simple"&gt;
-&lt;li&gt;Las operaciones aplicadas sobre la variable i que actúa como indice,
+&lt;li&gt;Las operaciones aplicadas sobre la variable i que actúa como índice,
 nos da un numero menor al esperado que es 0.&lt;/li&gt;
 &lt;li&gt;El segundo ciclo ejecuta correctamente su código, mostrando cada uno de los
 valores almacenados.&lt;/li&gt;
@@ -248,7 +248,7 @@ stack frame.&lt;/p&gt;
 operador de '&amp;gt;=' cambiarlo ha '&amp;gt;' por la razón de que cuando sea cero habrá iterado
 tres veces, el tamaño del arreglo, y transferiremos el decremento de la variable
 localizado en la condicional, un poco antes del direccionamiento para así asignar
-los indices correctos.&lt;/p&gt;
+los índices correctos.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;while&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="n"&gt;numeros&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -265,7 +265,7 @@ la información de depuración y los break que establecimos anteriormente seguir
 siendo validos. El programa detendrá su ejecución al inicio de la función main,
 como no establecimos ningún otro punto de interrupción podremos ejecutar el
 comando continue o su abreviación c para simular una ejecución común del programa.
-Aclaro que si establecieron otros puntos de interrupción, continue se dentendrá en
+Aclaro que si establecieron otros puntos de interrupción, continue se detendrá en
 sus respectivas posiciones.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="go"&gt;(gdb) continue&lt;/span&gt;
 &lt;span class="go"&gt;Continuing.&lt;/span&gt;
